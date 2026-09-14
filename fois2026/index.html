@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Much Local Data Is Enough? — FOIS 2026 Early Career Symposium · Rodrigo Huber</title>
+<meta name="description" content="Paper, A1 poster and talk slides for “How Much Local Data Is Enough? An Ontology-Grounded Neurosymbolic Research Agenda for Transferability in Forecasting”, FOIS 2026 Early Career Symposium, Vitória, Brazil.">
+<meta name="color-scheme" content="dark light">
+<meta property="og:title" content="How Much Local Data Is Enough? — FOIS 2026 Early Career Symposium">
+<meta property="og:description" content="An ontology-grounded neurosymbolic research agenda for transferability in forecasting. Paper, poster and slides.">
+<meta property="og:type" content="article">
+<script>
+(function(){
+  var l = 'en';
+  try { var q = new URLSearchParams(location.search).get('lang'); if (q === 'pt' || q === 'en') l = q;
+        else { var s = localStorage.getItem('lang'); if (s === 'pt' || s === 'en') l = s; } } catch(e){}
+  document.documentElement.setAttribute('data-lang', l);
+  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+})();
+</script>
+<style>
+  :root{
+    --deep:#040a12; --card:#0c1a2b; --card2:#0f2136; --line:#183049;
+    --foam:#eff5fc; --mist:#8ba4c0; --dim:#63799a;
+    --swell:#3d9be9; --volt:#5fd3c4; --sun:#ffb454;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--deep);color:var(--foam);
+    font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  html[data-lang="en"] body [lang="pt-BR"],
+  html[data-lang="pt"] body [lang="en"]{display:none!important}
+  .wrap{max-width:900px;margin:0 auto;padding:0 clamp(1.1rem,4vw,2rem)}
+  a{color:var(--swell);text-decoration:none}
+  a:hover{color:var(--volt)}
+  section{padding:clamp(2rem,6vw,3rem) 0;border-top:1px solid var(--line)}
+  h2{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sun);margin:0 0 1rem;font-weight:750}
+
+  /* ---------- top bar ---------- */
+  .top{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:clamp(.8rem,2.4vw,1.2rem) clamp(1.1rem,4vw,2rem)}
+  .back{font-size:.84rem;color:var(--mist)}
+  .langsw{display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+  .langsw button{display:flex;align-items:center;gap:.38rem;border:0;border-radius:999px;cursor:pointer;
+    background:transparent;color:var(--dim);font:inherit;font-size:.72rem;font-weight:750;
+    letter-spacing:.08em;padding:.28rem .6rem .28rem .45rem;line-height:1}
+  .langsw button:hover{color:var(--foam)}
+  .langsw button[aria-pressed="true"]{background:var(--card2);color:var(--foam);box-shadow:inset 0 0 0 1px var(--line)}
+  .langsw svg{width:18px;height:12px;border-radius:2px;display:block;flex:0 0 auto;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+  .langsw button[aria-pressed="false"] svg{opacity:.7}
+
+  /* ---------- hero ---------- */
+  header.hero{position:relative;padding:clamp(1.6rem,6vw,3.2rem) 0 clamp(2rem,6vw,3rem)}
+  header.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(90% 80% at 85% -10%,rgba(255,180,84,.18),transparent 60%)}
+  .eyebrow{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sun);margin:0 0 .9rem;font-weight:750}
+  h1{font-size:clamp(2rem,6.2vw,3.4rem);line-height:1.05;margin:0 0 .8rem;font-weight:850;letter-spacing:-.022em}
+  h1 em{font-style:normal;color:var(--sun)}
+  .sub{font-size:clamp(1.02rem,2.5vw,1.22rem);color:var(--mist);margin:0 0 1.3rem;max-width:58ch}
+  .authors{margin:0;font-size:.95rem}
+  .authors a{color:var(--foam)}
+  .authors a:hover{color:var(--volt)}
+  .authors .me{font-weight:700}
+  .aff{margin:.2rem 0 0;font-size:.82rem;color:var(--dim)}
+
+  /* ---------- session ---------- */
+  .session{margin-top:1.6rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.7rem}
+  .session div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem}
+  .session b{display:block;font-size:.95rem;font-weight:700}
+  .session span{font-size:.82rem;color:var(--mist)}
+  .note{font-size:.78rem;color:var(--dim);margin:.6rem 0 0}
+
+  /* ---------- downloads ---------- */
+  .dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem}
+  .dl a{display:flex;flex-direction:column;gap:.25rem;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:1rem 1.05rem;color:var(--foam);transition:border-color .25s,transform .25s}
+  .dl a:hover{border-color:var(--sun);transform:translateY(-2px);color:var(--foam)}
+  .dl a.main{border-color:rgba(255,180,84,.55);background:linear-gradient(160deg,#1a1a14,var(--card))}
+  .dl .k{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--sun)}
+  .dl b{font-size:1rem;font-weight:700}
+  .dl span{font-size:.8rem;color:var(--mist)}
+  .dl .k span,.dl b span{color:inherit;font-size:inherit}
+
+  /* ---------- text ---------- */
+  .abs{font-size:1rem;color:var(--mist);margin:0;max-width:70ch}
+  .abs em{color:var(--foam)}
+  .kw{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0 0;padding:0;list-style:none}
+  .kw li{font-size:.74rem;border:1px solid var(--line);color:var(--mist);padding:.2rem .65rem;border-radius:999px}
+  .status{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem}
+  .status div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.95rem 1.05rem}
+  .status .n{font-size:1.9rem;font-weight:850;line-height:1;display:block;color:var(--foam)}
+  .status .t{font-size:.86rem;color:var(--mist);display:block;margin-top:.35rem}
+  .status .s{display:inline-block;margin-top:.55rem;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+    font-weight:800;padding:.18rem .5rem;border-radius:4px}
+  .s.done{background:#17766c;color:#fff}
+  .s.test{background:var(--sun);color:#20160a}
+  .s.wip{border:1px solid var(--foam);color:var(--foam)}
+  ol.fb{margin:0;padding-left:1.2rem;color:var(--mist)}
+  ol.fb li{margin:.35rem 0}
+  ol.fb b{color:var(--foam);font-weight:650}
+  pre{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem;
+    font-size:.78rem;line-height:1.5;color:var(--mist);overflow-x:auto;margin:0}
+  .cite{font-size:.9rem;color:var(--mist);margin:0 0 .9rem}
+  .contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.6rem}
+  .contact a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:.8rem 1rem;color:var(--foam)}
+  .contact a:hover{border-color:var(--volt);color:var(--foam)}
+  .contact b{font-size:.92rem;font-weight:650}
+  .contact span{font-size:.78rem;color:var(--dim);overflow-wrap:anywhere}
+  footer{border-top:1px solid var(--line);padding:2rem 0 3rem;color:var(--dim);font-size:.8rem}
+  footer p{margin:.25rem 0}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="back" href="../"><span lang="en">&larr; rodrigohuber.github.io</span><span lang="pt-BR">&larr; rodrigohuber.github.io</span></a>
+  <div class="langsw" role="group" aria-label="Language / Idioma">
+    <button type="button" data-set="en" aria-pressed="true" title="English">
+      <svg viewBox="0 0 19 10" aria-hidden="true" preserveAspectRatio="none"><rect width="19" height="10" fill="#b22234"/><path d="M0 1.15h19M0 2.69h19M0 4.23h19M0 5.77h19M0 7.31h19M0 8.85h19" stroke="#fff" stroke-width=".77"/><rect width="7.6" height="5.38" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.3" cy="1.1" r=".3"/><circle cx="3.8" cy="1.1" r=".3"/><circle cx="6.3" cy="1.1" r=".3"/><circle cx="2.55" cy="2.7" r=".3"/><circle cx="5.05" cy="2.7" r=".3"/><circle cx="1.3" cy="4.3" r=".3"/><circle cx="3.8" cy="4.3" r=".3"/><circle cx="6.3" cy="4.3" r=".3"/></g></svg>EN</button>
+    <button type="button" data-set="pt" aria-pressed="false" title="Português">
+      <svg viewBox="0 0 20 14" aria-hidden="true" preserveAspectRatio="none"><rect width="20" height="14" fill="#009c3b"/><path d="M10 1.7 18.3 7 10 12.3 1.7 7z" fill="#ffdf00"/><circle cx="10" cy="7" r="3.5" fill="#002776"/><path d="M6.6 6.2c2.3-.5 4.8-.2 6.8 1" stroke="#fff" stroke-width=".7" fill="none"/></svg>PT</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">FOIS 2026 &middot; Early Career Symposium &middot; Vitória, <span lang="en">Brazil</span><span lang="pt-BR">Brasil</span></p>
+    <h1>How Much Local Data Is <em>Enough?</em></h1>
+    <p class="sub" lang="en">An ontology-grounded neurosymbolic research agenda for transferability in forecasting.</p>
+    <p class="sub" lang="pt-BR">Uma agenda de pesquisa neurossimbólica, ancorada em ontologia, para a transferibilidade em previsão.</p>
+    <p class="authors">
+      <a class="me" href="https://orcid.org/0009-0003-3001-2870" rel="noopener">Rodrigo Huber Marques Moreira Mendes</a> &middot;
+      <a href="https://orcid.org/0000-0001-7932-7134" rel="noopener">Fernanda Baião</a> &middot;
+      <a href="https://orcid.org/0000-0002-0210-3703" rel="noopener">Reinaldo Castro Souza</a>
+    </p>
+    <p class="aff" lang="en">Pontifícia Universidade Católica do Rio de Janeiro (PUC-Rio), Department of Industrial Engineering</p>
+    <p class="aff" lang="pt-BR">Pontifícia Universidade Católica do Rio de Janeiro (PUC-Rio), Departamento de Engenharia Industrial</p>
+
+    <div class="session">
+      <div lang="en"><b>Lightning talk</b><span>Thursday 24 September 2026 &middot; 14:00–15:30 session, Early Career Symposium</span></div>
+      <div lang="pt-BR"><b>Apresentação relâmpago</b><span>Quinta-feira, 24 de setembro de 2026 &middot; sessão das 14h às 15h30, Early Career Symposium</span></div>
+      <div lang="en"><b>Poster</b><span>Same day, during the 15:30–16:00 coffee break</span></div>
+      <div lang="pt-BR"><b>Pôster</b><span>No mesmo dia, no coffee break das 15h30 às 16h</span></div>
+    </div>
+    <p class="note" lang="en">Times are local (Vitória, UTC−3), as listed in the <a href="https://foisconference.org/program/" rel="noopener">published FOIS 2026 program</a>.</p>
+    <p class="note" lang="pt-BR">Horário local (Vitória, UTC−3), conforme o <a href="https://foisconference.org/program/" rel="noopener">programa publicado do FOIS 2026</a>.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2><span lang="en">Download</span><span lang="pt-BR">Baixar</span></h2>
+    <div class="dl">
+      <a class="main" href="mendes-fois2026-paper.pdf">
+        <span class="k"><span lang="en">Paper</span><span lang="pt-BR">Artigo</span></span>
+        <b><span lang="en">Camera-ready</span><span lang="pt-BR">Versão final</span></b>
+        <span lang="en">PDF &middot; 7 pages &middot; CC BY 4.0</span><span lang="pt-BR">PDF &middot; 7 páginas &middot; CC BY 4.0 &middot; em inglês</span></a>
+      <a href="mendes-fois2026-poster-A1.pdf">
+        <span class="k"><span lang="en">Poster</span><span lang="pt-BR">Pôster</span></span>
+        <b>A1</b>
+        <span lang="en">PDF &middot; 594 × 841 mm</span><span lang="pt-BR">PDF &middot; 594 × 841 mm &middot; em inglês</span></a>
+      <a href="mendes-fois2026-lightning-talk.pdf">
+        <span class="k"><span lang="en">Talk</span><span lang="pt-BR">Apresentação</span></span>
+        <b><span lang="en">Lightning-talk slides</span><span lang="pt-BR">Slides da fala relâmpago</span></b>
+        <span lang="en">PDF &middot; 8 slides</span><span lang="pt-BR">PDF &middot; 8 slides &middot; em inglês</span></a>
+      <a href="mendes-fois2026-slides.pdf">
+        <span class="k"><span lang="en">Slides</span><span lang="pt-BR">Slides</span></span>
+        <b><span lang="en">Extended deck</span><span lang="pt-BR">Versão estendida</span></b>
+        <span lang="en">PDF &middot; 11 slides</span><span lang="pt-BR">PDF &middot; 11 slides &middot; em inglês</span></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span lang="en">Abstract</span><span lang="pt-BR">Resumo (original, em inglês)</span></h2>
+    <p class="abs">Renewable-energy planning depends on reliable solar-irradiation forecasts, yet measurement
+      infrastructure remains sparse across much of Brazil, leaving practitioners with abundant data at a few
+      well-instrumented sites and almost nothing elsewhere. This paper addresses that scarcity through a
+      <em>neurosymbolic</em> (NSAI) approach: rather than treating transfer learning as a purely statistical
+      operation, I propose to embed a well-founded domain ontology inside the decision procedure that should
+      govern whether a model trained at a data-rich source site may be deployed at a data-scarce target site,
+      and if so, how much local data the target needs before adaptation is warranted. The central question is
+      partly conceptual and partly empirical: <em>when can a model trained in one context be trusted in another,
+      and how much local evidence is needed before that trust is justified?</em> Within this paradigm, symbolic,
+      connectionist, and statistical components are combined; the distinguishing choice here is to ground the
+      symbolic component in a well-founded domain ontology, which would formalize domain knowledge about site
+      similarity (climate type, biome, geography, radiative regime) so that ontological commitments become
+      explicit, inspectable, and testable. To this end, I am developing a <em>Neurosymbolic Semantic Gate</em>:
+      a symbolic decision layer that will operationalize these commitments to govern transfer. This statement
+      lays out the motivation, the core ideas, and the experimental program: a principled investigation of when
+      ontological structure can govern transfer, and of how much local data a target site truly needs.</p>
+    <ul class="kw">
+      <li>Transfer Learning</li><li>Neurosymbolic AI</li><li>Ontology</li><li>Data efficiency</li>
+      <li>Solar Irradiation</li><li>Forecasting</li><li>Machine Learning</li><li>Renewable Energy</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span lang="en">Where the work stands</span><span lang="pt-BR">Em que pé está</span></h2>
+    <div class="status">
+      <div><span class="n">20</span>
+        <span class="t" lang="en">Brazilian sites where the reference data budget <i>n*</i> has been measured under one fixed protocol</span>
+        <span class="t" lang="pt-BR">locais brasileiros onde o orçamento de dados de referência <i>n*</i> foi medido sob um protocolo fixo</span>
+        <span class="s done"><span lang="en">Largely complete</span><span lang="pt-BR">Quase concluído</span></span></div>
+      <div><span class="n">5</span>
+        <span class="t" lang="en">rival criteria for what makes two sites the same kind of place</span>
+        <span class="t" lang="pt-BR">critérios rivais para o que torna dois locais o mesmo tipo de lugar</span>
+        <span class="s test"><span lang="en">To be tested against those budgets</span><span lang="pt-BR">A testar contra esses orçamentos</span></span></div>
+      <div><span class="n">1</span>
+        <span class="t" lang="en">Neurosymbolic Semantic Gate between a trained model and a new site</span>
+        <span class="t" lang="pt-BR">Semantic Gate neurossimbólico entre um modelo treinado e um novo local</span>
+        <span class="s wip"><span lang="en">Proposed · still under development</span><span lang="pt-BR">Proposto · ainda em desenvolvimento</span></span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span lang="en">Where I want pushback</span><span lang="pt-BR">Onde quero ser contestado</span></h2>
+    <ol class="fb" lang="en">
+      <li>How I <b>individuate and operationalize</b> the similarity relations.</li>
+      <li>The <b>epistemic status</b> I assign to a gate’s verdict.</li>
+      <li>How to frame the <b>interface between ontology and learning</b> so that it speaks to both communities.</li>
+    </ol>
+    <ol class="fb" lang="pt-BR">
+      <li>Como eu <b>individuo e operacionalizo</b> as relações de similaridade.</li>
+      <li>O <b>status epistêmico</b> que atribuo ao veredito do gate.</li>
+      <li>Como enquadrar a <b>interface entre ontologia e aprendizado</b> para que ela fale às duas comunidades.</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span lang="en">How to cite</span><span lang="pt-BR">Como citar</span></h2>
+    <p class="cite">Mendes, R. H. M. M., Baião, F., &amp; Souza, R. C. (2026). How Much Local Data Is Enough? An
+      Ontology-Grounded Neurosymbolic Research Agenda for Transferability in Forecasting. In <i>Proceedings of FOIS
+      2026 Satellite Events, co-located with the 16th International Conference on Formal Ontology in Information
+      Systems (FOIS 2026)</i>, Vitória, Brazil. CEUR Workshop Proceedings<span lang="en"> (to appear)</span><span lang="pt-BR"> (no prelo)</span>.</p>
+<pre>@inproceedings{mendes2026fois,
+  author    = {Mendes, Rodrigo Huber Marques Moreira and Bai{\~a}o, Fernanda and Souza, Reinaldo Castro},
+  title     = {How Much Local Data Is Enough? An Ontology-Grounded Neurosymbolic
+               Research Agenda for Transferability in Forecasting},
+  booktitle = {Proceedings of FOIS 2026 Satellite Events, co-located with the 16th International
+               Conference on Formal Ontology in Information Systems (FOIS 2026)},
+  address   = {Vit{\'o}ria, Brazil},
+  series    = {CEUR Workshop Proceedings},
+  year      = {2026},
+  note      = {Early Career Symposium. To appear}
+}</pre>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span lang="en">Contact</span><span lang="pt-BR">Contato</span></h2>
+    <div class="contact">
+      <a href="mailto:rodrigo@aluno.puc-rio.br"><b>E-mail</b><span>rodrigo@aluno.puc-rio.br</span></a>
+      <a href="https://orcid.org/0009-0003-3001-2870" rel="noopener"><b>ORCID</b><span>0009-0003-3001-2870</span></a>
+      <a href="https://github.com/rodrigohuber" rel="noopener"><b>GitHub</b><span>github.com/rodrigohuber</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p lang="en">The paper is © 2026 its authors, under Creative Commons Attribution 4.0 International (CC BY 4.0).</p>
+    <p lang="pt-BR">O artigo é © 2026 de seus autores, sob licença Creative Commons Atribuição 4.0 Internacional (CC BY 4.0).</p>
+    <p><a href="../"><span lang="en">&larr; Back to rodrigohuber.github.io</span><span lang="pt-BR">&larr; Voltar para rodrigohuber.github.io</span></a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement,
+      btns = document.querySelectorAll('.langsw button');
+  function setLang(l, save){
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'pt' ? 'pt-BR' : 'en';
+    for (var i = 0; i < btns.length; i++)
+      btns[i].setAttribute('aria-pressed', btns[i].getAttribute('data-set') === l ? 'true' : 'false');
+    if (save) { try { localStorage.setItem('lang', l); } catch(e){} }
+  }
+  for (var i = 0; i < btns.length; i++)
+    btns[i].addEventListener('click', function(){ setLang(this.getAttribute('data-set'), true); });
+  setLang(root.getAttribute('data-lang') || 'en', false);
+})();
+</script>
+</body>
+</html>

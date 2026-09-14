@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rodrigo Huber — Doutorando em Engenharia de Produção · machine learning, IA e sistemas de previsão para energias renováveis e criptoativos</title>
-<meta name="description" content="Rodrigo Huber Mendes — doutorando em Engenharia de Produção na PUC-Rio, com foco em machine learning, inteligência artificial e sistemas de previsão para energias renováveis e criptoativos. DRO, simulação, séries temporais e transfer learning.">
+<title>Rodrigo Huber — PhD candidate in Industrial Engineering · machine learning, AI and forecasting for renewable energy and crypto assets</title>
+<meta name="description" content="Rodrigo Huber Mendes — PhD candidate in Industrial Engineering at PUC-Rio, working on machine learning, artificial intelligence and forecasting systems for renewable energy and crypto assets. DRO, simulation, time series and transfer learning.">
 <meta name="color-scheme" content="dark light">
-<meta property="og:title" content="Rodrigo Huber — Doutorando em Engenharia de Produção · ML, IA e previsão para energias renováveis e criptoativos">
-<meta property="og:description" content="DRO, simulação, machine learning e previsão. Da pesquisa de doutorado à operação real.">
+<meta property="og:title" content="Rodrigo Huber — PhD candidate in Industrial Engineering · ML, AI and forecasting for renewable energy and crypto assets">
+<meta property="og:description" content="DRO, simulation, machine learning and forecasting. From PhD research to real operations.">
 <meta property="og:type" content="website">
+<link rel="alternate" hreflang="en" href="https://rodrigohuber.github.io/?lang=en">
+<link rel="alternate" hreflang="pt-BR" href="https://rodrigohuber.github.io/?lang=pt">
+<script>
+/* Language is chosen before first paint so the page never flashes the other one.
+   Order: ?lang= in the URL, then the visitor's saved choice, then English. */
+(function(){
+  var l = 'en';
+  try { var q = new URLSearchParams(location.search).get('lang'); if (q === 'pt' || q === 'en') l = q;
+        else { var s = localStorage.getItem('lang'); if (s === 'pt' || s === 'en') l = s; } } catch(e){}
+  document.documentElement.setAttribute('data-lang', l);
+  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+})();
+</script>
 <style>
   :root{
     --deep:#040a12; --ground:#07111d; --card:#0c1a2b; --card2:#0f2136; --line:#183049;
@@ -20,6 +33,11 @@
   body{margin:0;background:var(--deep);color:var(--foam);
     font-family:"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
     line-height:1.6;-webkit-font-smoothing:antialiased}
+
+  /* ---------- bilingual: every translated element exists twice, one per language ---------- */
+  html[data-lang="en"] body [lang="pt-BR"],
+  html[data-lang="pt"] body [lang="en"]{display:none!important}
+
   .wrap{max-width:1020px;margin:0 auto;padding:0 clamp(1.1rem,4vw,2rem)}
   a{color:var(--swell);text-decoration:none}
   a:hover{color:var(--volt)}
@@ -27,6 +45,20 @@
   h2{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--volt);
     margin:0 0 .5rem;font-weight:750}
   .h2sub{color:var(--dim);font-size:.92rem;margin:0 0 1.7rem;max-width:62ch}
+
+  /* ---------- language switch, top-right of the hero ---------- */
+  .langsw{position:absolute;top:clamp(.8rem,2.4vw,1.2rem);right:clamp(1.1rem,4vw,2rem);z-index:5;
+    display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;
+    background:rgba(12,26,43,.85);backdrop-filter:blur(4px)}
+  .langsw button{display:flex;align-items:center;gap:.38rem;border:0;border-radius:999px;cursor:pointer;
+    background:transparent;color:var(--dim);font:inherit;font-size:.72rem;font-weight:750;
+    letter-spacing:.08em;padding:.28rem .6rem .28rem .45rem;line-height:1}
+  .langsw button:hover{color:var(--foam)}
+  .langsw button[aria-pressed="true"]{background:var(--card2);color:var(--foam);
+    box-shadow:inset 0 0 0 1px var(--line)}
+  .langsw svg{width:18px;height:12px;border-radius:2px;display:block;flex:0 0 auto;
+    box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+  .langsw button[aria-pressed="false"] svg{opacity:.7}
 
   /* ---------- hero ---------- */
   header.hero{position:relative;overflow:hidden;padding:clamp(4rem,12vw,7rem) 0 clamp(2.2rem,6vw,3.4rem)}
@@ -78,14 +110,16 @@
     padding:1.15rem 1.2rem;display:flex;flex-direction:column;gap:.5rem;
     transition:border-color .25s,transform .25s}
   .card:hover{border-color:var(--swell);transform:translateY(-2px)}
+  .card.gold{border-color:rgba(255,180,84,.55)}
+  .card.gold:hover{border-color:var(--sun)}
   .tag{font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
     color:var(--dim);margin:0}
   .tag.live{color:var(--volt)}
+  .tag.sun{color:var(--sun)}
   .card h3{font-size:1.03rem;margin:0;font-weight:680;line-height:1.34}
   .card p{margin:0;font-size:.885rem;color:var(--mist)}
   .card .go{margin-top:auto;font-size:.82rem;overflow-wrap:anywhere}
 
-  /* ---------- credentials ---------- */
   /* ---------- timeline ---------- */
   .tl{display:grid;gap:.1rem}
   .tlrow{display:grid;grid-template-columns:8.5rem 1fr;gap:.3rem 1.1rem;padding:.7rem 0;
@@ -104,12 +138,14 @@
   .cred b{display:block;font-size:.94rem;font-weight:650;margin-bottom:.15rem}
   .cred span{font-size:.8rem;color:var(--dim)}
 
-  /* faixa do topo: leva ao pitch deck */
-  .deckbar{display:block;background:linear-gradient(90deg,var(--swell),#5ab4f2);color:#06121f;
-    text-decoration:none;font-weight:750;font-size:.9rem;text-align:center;padding:.62rem 1rem;
-    line-height:1.35}
-  .deckbar:hover{color:#06121f;filter:brightness(1.06)}
-  .deckbar b{font-weight:850}
+  /* ---------- top strip: gold, to the FOIS 2026 page (the Sebrae deck stays reachable
+     from the Sebrae section and the ForeSight card) ---------- */
+  .strip{display:block;text-decoration:none;font-weight:750;font-size:.9rem;text-align:center;
+    padding:.62rem 1rem;line-height:1.35}
+  .strip b{font-weight:850}
+  .strip:hover{filter:brightness(1.06)}
+  .foisbar{background:linear-gradient(90deg,#e9a23b,var(--sun) 45%,#ffd08a);color:#20160a}
+  .foisbar:hover{color:#20160a}
 
   /* ---------- links ---------- */
   .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:.6rem}
@@ -135,7 +171,7 @@
   .eggbox .go{display:inline-block;background:var(--sun);color:#20160a;font-weight:780;
     padding:.6rem 1.2rem;border-radius:999px;font-size:.92rem}
   .eggbox .go:hover{color:#20160a;filter:brightness(1.08)}
-  .eggbox .close{display:block;margin-top:.9rem;background:none;border:0;color:var(--dim);
+  .eggbox .close{display:block;margin:.9rem auto 0;background:none;border:0;color:var(--dim);
     font-size:.79rem;cursor:pointer;font-family:inherit}
 
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
@@ -143,20 +179,39 @@
 </head>
 <body>
 
-<a class="deckbar" href="sebrae/" id="deckbar">🎤 <b>Momento Pitch &middot; Palco Sebrae:</b> Ver o pitch deck apresentado &rarr;</a>
+<a class="strip foisbar" href="fois2026/" id="foisbar"><span lang="en">📄 <b>FOIS 2026 · Vitória, Brazil:</b> “How Much Local Data Is Enough?” &mdash; paper, poster and talk &rarr;</span><span lang="pt-BR">📄 <b>FOIS 2026 · Vitória:</b> “How Much Local Data Is Enough?” &mdash; artigo, pôster e apresentação &rarr;</span></a>
 
 <header class="hero">
+  <div class="langsw" role="group" aria-label="Language / Idioma">
+    <button type="button" data-set="en" aria-pressed="true" title="English">
+      <svg viewBox="0 0 19 10" aria-hidden="true" preserveAspectRatio="none"><rect width="19" height="10" fill="#b22234"/><path d="M0 1.15h19M0 2.69h19M0 4.23h19M0 5.77h19M0 7.31h19M0 8.85h19" stroke="#fff" stroke-width=".77"/><rect width="7.6" height="5.38" fill="#3c3b6e"/><g fill="#fff"><circle cx="1.3" cy="1.1" r=".3"/><circle cx="3.8" cy="1.1" r=".3"/><circle cx="6.3" cy="1.1" r=".3"/><circle cx="2.55" cy="2.7" r=".3"/><circle cx="5.05" cy="2.7" r=".3"/><circle cx="1.3" cy="4.3" r=".3"/><circle cx="3.8" cy="4.3" r=".3"/><circle cx="6.3" cy="4.3" r=".3"/></g></svg>EN</button>
+    <button type="button" data-set="pt" aria-pressed="false" title="Português">
+      <svg viewBox="0 0 20 14" aria-hidden="true" preserveAspectRatio="none"><rect width="20" height="14" fill="#009c3b"/><path d="M10 1.7 18.3 7 10 12.3 1.7 7z" fill="#ffdf00"/><circle cx="10" cy="7" r="3.5" fill="#002776"/><path d="M6.6 6.2c2.3-.5 4.8-.2 6.8 1" stroke="#fff" stroke-width=".7" fill="none"/></svg>PT</button>
+  </div>
   <div class="wrap">
     <p class="eyebrow">PUC-Rio &middot; Rio de Janeiro</p>
     <h1>Rodrigo Huber<span class="dot" id="dot">.</span></h1>
-    <p class="role"><b>Doutorando em Engenharia de Produção</b> &mdash; foco em machine learning,
+    <p class="role" lang="en"><b>PhD candidate in Industrial Engineering</b> &mdash; working on machine learning,
+      artificial intelligence and <b>forecasting systems for renewable energy and crypto assets</b>.</p>
+    <p class="role" lang="pt-BR"><b>Doutorando em Engenharia de Produção</b> &mdash; foco em machine learning,
       inteligência artificial e <b>sistemas de previsão para energias renováveis e criptoativos</b>.</p>
-    <p class="lede">Cientista de dados, engenheiro mecânico de formação e <b>mestre em Metrologia</b>
+    <p class="lede" lang="en">Data scientist, mechanical engineer by training and <b>MSc in Metrology</b>
+      — the science of measurement. I work where <b>forecasting</b>, <b>optimization under uncertainty</b> and
+      <b>simulation</b> meet, focusing on <b>solar energy</b> and on <b>pressure and flow measurement
+      systems for Oil &amp; Gas</b>, and where academic method has to survive contact with real
+      operations. Before I model a number, I know what it cost to measure.</p>
+    <p class="lede" lang="pt-BR">Cientista de dados, engenheiro mecânico de formação e <b>mestre em Metrologia</b>
       — a ciência da medição. Trabalho onde <b>previsão</b>, <b>otimização sob incerteza</b> e
       <b>simulação</b> se encontram, com foco em <b>energia solar</b> e em <b>sistemas de medição de
       pressão e vazão para Óleo e Gás</b>, e onde o método acadêmico precisa sobreviver ao contato
       com a operação real. Antes de modelar um número, sei o que ele custou para ser medido.</p>
-    <ul class="chips">
+    <ul class="chips" lang="en">
+      <li>Data science</li><li>Machine learning</li><li>Robust optimization (DRO)</li>
+      <li>Simulation</li><li>Time series</li><li>Transfer learning</li>
+      <li>Metrology</li><li>Pressure and flow measurement</li><li>Oil &amp; Gas</li>
+      <li>Mechanical engineering</li><li>Solar energy</li><li>PRISMA systematic review</li>
+    </ul>
+    <ul class="chips" lang="pt-BR">
       <li>Ciência de dados</li><li>Machine learning</li><li>Otimização robusta (DRO)</li>
       <li>Simulação</li><li>Séries temporais</li><li>Transfer learning</li>
       <li>Metrologia</li><li>Medição de pressão e vazão</li><li>Óleo e Gás</li>
@@ -164,101 +219,148 @@
     </ul>
 
     <div class="proof">
-      <div class="stat"><span class="n">106</span><span class="l">estudos numa revisão sistemática PRISMA, extraídos sob esquema fixo</span></div>
-      <div class="stat"><span class="n">9,4<em>M</em></span><span class="l">barras de 1 minuto de mercado processadas, cada arquivo verificado por SHA-256</span></div>
-      <div class="stat"><span class="n">7 &rarr; <em>1</em></span><span class="l">estratégias testadas contra custos; seis reprovadas, uma sobreviveu e foi replicada</span></div>
-      <div class="stat"><span class="n">2</span><span class="l">títulos concluídos na PUC-Rio, e um doutorado em andamento</span></div>
+      <div class="stat"><span class="n">106</span><span class="l" lang="en">studies in a PRISMA systematic review, extracted under a fixed schema</span><span class="l" lang="pt-BR">estudos numa revisão sistemática PRISMA, extraídos sob esquema fixo</span></div>
+      <div class="stat"><span class="n" lang="en">9.4<em>M</em></span><span class="n" lang="pt-BR">9,4<em>M</em></span><span class="l" lang="en">1-minute market bars processed, every file verified by SHA-256</span><span class="l" lang="pt-BR">barras de 1 minuto de mercado processadas, cada arquivo verificado por SHA-256</span></div>
+      <div class="stat"><span class="n">7 &rarr; <em>1</em></span><span class="l" lang="en">strategies tested against costs; six failed, one survived and was replicated</span><span class="l" lang="pt-BR">estratégias testadas contra custos; seis reprovadas, uma sobreviveu e foi replicada</span></div>
+      <div class="stat"><span class="n">2</span><span class="l" lang="en">degrees completed at PUC-Rio, and a PhD in progress</span><span class="l" lang="pt-BR">títulos concluídos na PUC-Rio, e um doutorado em andamento</span></div>
     </div>
   </div>
 </header>
 
 <section>
   <div class="wrap">
-    <h2>Selecionado pelo Sebrae</h2>
-    <p class="h2sub">Uma leitura externa do projeto, feita por quem avalia startup de ofício.</p>
+    <h2><span lang="en">Selected by Sebrae</span><span lang="pt-BR">Selecionado pelo Sebrae</span></h2>
+    <p class="h2sub" lang="en">An outside reading of the project, by people who assess startups for a living.</p>
+    <p class="h2sub" lang="pt-BR">Uma leitura externa do projeto, feita por quem avalia startup de ofício.</p>
     <div class="cap" style="border-color:var(--sun)">
-      <h3><span class="k" style="color:var(--sun)">★</span> ForeSight 3.0 no Palco Sebrae &mdash; Blockchain Rio</h3>
-      <p><b>O ForeSight 3.0 foi selecionado no edital do Sebrae RJ para startups de blockchain</b> e
-        apresentado no <b>Momento Pitch &mdash; Palco Sebrae</b>, durante o Blockchain Rio, o maior
-        evento de blockchain e finanças digitais da América Latina.</p>
-      <p style="margin-top:.6rem"><b>O que é o edital.</b> O Sebrae &mdash; Serviço Brasileiro de
-        Apoio às Micro e Pequenas Empresas &mdash; abre chamadas públicas em que startups se
-        inscrevem com um pitch em vídeo e a descrição do problema que resolvem, da inovação, do
-        mercado e do time. Uma banca analisa por mérito e seleciona quais recebem o palco, o espaço
-        de exposição e o acesso a investidores no evento.</p>
-      <p style="margin-top:.6rem">Ou seja: a seleção é uma <b>avaliação independente</b>, feita por
-        gente de fora, e não por quem construiu o projeto. É o mesmo padrão do resto deste trabalho
-        &mdash; uma afirmação vale o que a conferência de outra pessoa faz dela valer.</p>
+      <h3><span class="k" style="color:var(--sun)">★</span> <span lang="en">ForeSight 3.0 on the Sebrae Stage &mdash; Blockchain Rio</span><span lang="pt-BR">ForeSight 3.0 no Palco Sebrae &mdash; Blockchain Rio</span></h3>
+      <div lang="en">
+        <p><b>ForeSight 3.0 was selected in Sebrae RJ’s open call for blockchain startups</b> and
+          presented at <b>Momento Pitch &mdash; Palco Sebrae</b>, the Sebrae pitch stage at Blockchain
+          Rio, the largest blockchain and digital-finance event in Latin America.</p>
+        <p style="margin-top:.6rem"><b>What the call is.</b> Sebrae &mdash; Brazil’s support service for
+          micro and small businesses &mdash; runs public calls in which startups apply with a video pitch
+          and a description of the problem they solve, their innovation, market and team. A panel
+          assesses them on merit and selects who gets the stage, exhibition space and access to
+          investors at the event.</p>
+        <p style="margin-top:.6rem">In other words, the selection is an <b>independent assessment</b>, made
+          by outsiders rather than by whoever built the project. It is the same standard as the rest of
+          this work &mdash; a claim is worth only what someone else’s checking makes it worth.</p>
+      </div>
+      <div lang="pt-BR">
+        <p><b>O ForeSight 3.0 foi selecionado no edital do Sebrae RJ para startups de blockchain</b> e
+          apresentado no <b>Momento Pitch &mdash; Palco Sebrae</b>, durante o Blockchain Rio, o maior
+          evento de blockchain e finanças digitais da América Latina.</p>
+        <p style="margin-top:.6rem"><b>O que é o edital.</b> O Sebrae &mdash; Serviço Brasileiro de
+          Apoio às Micro e Pequenas Empresas &mdash; abre chamadas públicas em que startups se
+          inscrevem com um pitch em vídeo e a descrição do problema que resolvem, da inovação, do
+          mercado e do time. Uma banca analisa por mérito e seleciona quais recebem o palco, o espaço
+          de exposição e o acesso a investidores no evento.</p>
+        <p style="margin-top:.6rem">Ou seja: a seleção é uma <b>avaliação independente</b>, feita por
+          gente de fora, e não por quem construiu o projeto. É o mesmo padrão do resto deste trabalho
+          &mdash; uma afirmação vale o que a conferência de outra pessoa faz dela valer.</p>
+      </div>
       <ul class="tools" style="margin-top:.7rem">
-        <li>Blockchain Rio</li><li>ExpoMag, Rio de Janeiro</li><li>12/08/2026</li>
+        <li>Blockchain Rio</li><li>ExpoMag, Rio de Janeiro</li><li lang="en">12 August 2026</li><li lang="pt-BR">12/08/2026</li>
       </ul>
       <p class="go" style="margin-top:.7rem;font-size:.85rem">
-        <a href="sebrae/">Ver o pitch deck apresentado &rarr;</a></p>
+        <a href="sebrae/"><span lang="en">See the pitch deck I presented &rarr;</span><span lang="pt-BR">Ver o pitch deck apresentado &rarr;</span></a></p>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>O que eu faço</h2>
-    <p class="h2sub">Sete competências que se usam juntas: prever, decidir sob incerteza, simular a
+    <h2><span lang="en">What I do</span><span lang="pt-BR">O que eu faço</span></h2>
+    <p class="h2sub" lang="en">Seven capabilities that work together: forecast, decide under uncertainty,
+      simulate the decision before making it, and prove the result isn’t luck.</p>
+    <p class="h2sub" lang="pt-BR">Sete competências que se usam juntas: prever, decidir sob incerteza, simular a
       decisão antes de tomá-la, e provar que o resultado não é sorte.</p>
     <div class="caps">
 
       <div class="cap">
-        <h3><span class="k">01</span> Previsão e séries temporais</h3>
-        <p>Modelos de previsão avaliados como se avalia ciência: divisão cronológica, walk-forward,
+        <h3><span class="k">01</span> <span lang="en">Forecasting and time series</span><span lang="pt-BR">Previsão e séries temporais</span></h3>
+        <p lang="en">Forecasting models evaluated the way science is evaluated: chronological splits,
+          walk-forward testing, costs charged, and comparison against naive baselines — which win more
+          often than the literature admits.</p>
+        <p lang="pt-BR">Modelos de previsão avaliados como se avalia ciência: divisão cronológica, walk-forward,
           custos cobrados e comparação contra linhas de base ingênuas — que vencem com mais
           frequência do que a literatura admite.</p>
-        <ul class="tools"><li>LightGBM</li><li>GARCH / HAR</li><li>redes neurais</li><li>modelos de fundação</li></ul>
+        <ul class="tools" lang="en"><li>LightGBM</li><li>GARCH / HAR</li><li>neural networks</li><li>foundation models</li></ul>
+        <ul class="tools" lang="pt-BR"><li>LightGBM</li><li>GARCH / HAR</li><li>redes neurais</li><li>modelos de fundação</li></ul>
       </div>
 
       <div class="cap">
-        <h3><span class="k">02</span> Otimização sob incerteza &mdash; DRO</h3>
-        <p><b>Distributionally robust optimization</b>: decidir bem quando a distribuição que gerou
+        <h3><span class="k">02</span> <span lang="en">Optimization under uncertainty &mdash; DRO</span><span lang="pt-BR">Otimização sob incerteza &mdash; DRO</span></h3>
+        <p lang="en"><b>Distributionally robust optimization</b>: deciding well when the distribution that
+          generated the data is not the one that will hold tomorrow. It is the core of my PhD research,
+          applied to solar energy — and the difference between a plan that is optimal on paper and one
+          that survives the scenario nobody foresaw.</p>
+        <p lang="pt-BR"><b>Distributionally robust optimization</b>: decidir bem quando a distribuição que gerou
           os dados não é a que vai valer amanhã. É o núcleo da minha pesquisa de doutorado, aplicado
           a energia solar — e a diferença entre um plano ótimo no papel e um plano que aguenta o
           cenário que ninguém previu.</p>
-        <ul class="tools"><li>DRO</li><li>otimização estocástica</li><li>otimização de portfólio</li></ul>
+        <ul class="tools" lang="en"><li>DRO</li><li>stochastic optimization</li><li>portfolio optimization</li></ul>
+        <ul class="tools" lang="pt-BR"><li>DRO</li><li>otimização estocástica</li><li>otimização de portfólio</li></ul>
       </div>
 
       <div class="cap">
-        <h3><span class="k">03</span> Simulação</h3>
-        <p>Motores de simulação para testar decisões antes que elas custem dinheiro: cenários
+        <h3><span class="k">03</span> <span lang="en">Simulation</span><span lang="pt-BR">Simulação</span></h3>
+        <p lang="en">Simulation engines that test decisions before they cost money: replicable scenarios,
+          costs and friction built in, and the right question at the end — not “how much did it make?”
+          but “under which conditions does it fail?”</p>
+        <p lang="pt-BR">Motores de simulação para testar decisões antes que elas custem dinheiro: cenários
           replicáveis, custos e atrito embutidos, e a pergunta certa no fim — não "quanto rendeu",
           mas "sob quais condições isso falha".</p>
-        <ul class="tools"><li>Monte Carlo</li><li>backtesting</li><li>cenários de estresse</li></ul>
+        <ul class="tools" lang="en"><li>Monte Carlo</li><li>backtesting</li><li>stress scenarios</li></ul>
+        <ul class="tools" lang="pt-BR"><li>Monte Carlo</li><li>backtesting</li><li>cenários de estresse</li></ul>
       </div>
 
       <div class="cap">
-        <h3><span class="k">04</span> Machine learning e transfer learning</h3>
-        <p>Como reaproveitar conhecimento de um domínio onde há dados para outro onde não há —
+        <h3><span class="k">04</span> <span lang="en">Machine learning and transfer learning</span><span lang="pt-BR">Machine learning e transfer learning</span></h3>
+        <p lang="en">How to reuse knowledge from a domain that has data in one that doesn’t — forecasting
+          at solar plants with no local history, and generalizing to new assets. Zero-shot and few-shot,
+          measured by the data that is actually missing.</p>
+        <p lang="pt-BR">Como reaproveitar conhecimento de um domínio onde há dados para outro onde não há —
           previsão em usinas solares sem histórico local, e generalização para ativos novos.
           Zero-shot e few-shot, medidos pelo dado que realmente falta.</p>
-        <ul class="tools"><li>transfer learning</li><li>zero/few-shot</li><li>quantificação de incerteza</li></ul>
+        <ul class="tools" lang="en"><li>transfer learning</li><li>zero/few-shot</li><li>uncertainty quantification</li></ul>
+        <ul class="tools" lang="pt-BR"><li>transfer learning</li><li>zero/few-shot</li><li>quantificação de incerteza</li></ul>
       </div>
 
       <div class="cap">
-        <h3><span class="k">05</span> Metrologia e confiabilidade da medição</h3>
-        <p>Mestre em <b>Metrologia</b> — a ciência da medição. Medição e calibração de
+        <h3><span class="k">05</span> <span lang="en">Metrology and measurement reliability</span><span lang="pt-BR">Metrologia e confiabilidade da medição</span></h3>
+        <p lang="en"><b>MSc in Metrology</b> — the science of measurement. Measurement and calibration of
+          <b>temperature, pressure and flow</b> for Oil &amp; Gas applications, and metrological
+          traceability under ISO/IEC 17025. A model is no better than the instrument that produced
+          its data.</p>
+        <p lang="pt-BR">Mestre em <b>Metrologia</b> — a ciência da medição. Medição e calibração de
           <b>temperatura, pressão e vazão</b> para aplicações de Óleo e Gás, e rastreabilidade
           metrológica sob requisitos da ISO/IEC 17025. Um modelo não é melhor que o instrumento
           que gerou o dado.</p>
-        <ul class="tools"><li>calibração</li><li>pressão e vazão</li><li>incerteza de medição</li><li>ISO/IEC 17025</li></ul>
+        <ul class="tools" lang="en"><li>calibration</li><li>pressure and flow</li><li>measurement uncertainty</li><li>ISO/IEC 17025</li></ul>
+        <ul class="tools" lang="pt-BR"><li>calibração</li><li>pressão e vazão</li><li>incerteza de medição</li><li>ISO/IEC 17025</li></ul>
       </div>
 
       <div class="cap">
-        <h3><span class="k">06</span> Método e rigor científico</h3>
-        <p>Revisão sistemática PRISMA, auditoria de resultados e escrita acadêmica sob normas ABNT e
+        <h3><span class="k">06</span> <span lang="en">Scientific method and rigor</span><span lang="pt-BR">Método e rigor científico</span></h3>
+        <p lang="en">PRISMA systematic reviews, results auditing, and academic writing under ABNT and ISO
+          standards. I know how to build evidence — and how to take apart evidence that doesn’t hold
+          up, my own included.</p>
+        <p lang="pt-BR">Revisão sistemática PRISMA, auditoria de resultados e escrita acadêmica sob normas ABNT e
           ISO. Sei construir a evidência — e sei desmontar a que não se sustenta, inclusive a minha.</p>
-        <ul class="tools"><li>PRISMA</li><li>ABNT / ISO</li><li>metrologia</li><li>reprodutibilidade</li></ul>
+        <ul class="tools" lang="en"><li>PRISMA</li><li>ABNT / ISO</li><li>metrology</li><li>reproducibility</li></ul>
+        <ul class="tools" lang="pt-BR"><li>PRISMA</li><li>ABNT / ISO</li><li>metrologia</li><li>reprodutibilidade</li></ul>
       </div>
 
       <div class="cap">
-        <h3><span class="k">07</span> Ensino</h3>
-        <p>Aulas particulares de engenharia, matemática, física e estatística; e auditoria e
+        <h3><span class="k">07</span> <span lang="en">Teaching</span><span lang="pt-BR">Ensino</span></h3>
+        <p lang="en">Private tutoring in engineering, mathematics, physics and statistics; plus auditing
+          and polishing academic work.</p>
+        <p lang="pt-BR">Aulas particulares de engenharia, matemática, física e estatística; e auditoria e
           refino de trabalhos acadêmicos.</p>
-        <ul class="tools"><li>estatística</li><li>cálculo</li><li>física</li><li>escrita científica</li></ul>
+        <ul class="tools" lang="en"><li>statistics</li><li>calculus</li><li>physics</li><li>scientific writing</li></ul>
+        <ul class="tools" lang="pt-BR"><li>estatística</li><li>cálculo</li><li>física</li><li>escrita científica</li></ul>
       </div>
 
     </div>
@@ -267,33 +369,56 @@
 
 <section>
   <div class="wrap">
-    <h2>Projetos</h2>
-    <p class="h2sub">Cada um com o código ou o protocolo aberto — o número que eu mostro é sempre
+    <h2><span lang="en">Projects</span><span lang="pt-BR">Projetos</span></h2>
+    <p class="h2sub" lang="en">Each with its code or protocol in the open — every number I show can be
+      traced back to the script that produced it.</p>
+    <p class="h2sub" lang="pt-BR">Cada um com o código ou o protocolo aberto — o número que eu mostro é sempre
       rastreável até o script que o gerou.</p>
     <div class="grid">
 
+      <article class="card gold">
+        <p class="tag sun"><span lang="en">Accepted paper &middot; FOIS 2026</span><span lang="pt-BR">Artigo aceito &middot; FOIS 2026</span></p>
+        <h3>How Much Local Data Is Enough?</h3>
+        <p lang="en">An ontology-grounded neurosymbolic research agenda for transferability in
+          forecasting: when can a model trained at one site be trusted at another, and how much local
+          data does the new site need? Early Career Symposium, Vitória, 24 September 2026.</p>
+        <p lang="pt-BR">Uma agenda de pesquisa neurossimbólica ancorada em ontologia para a
+          transferibilidade em previsão: quando um modelo treinado num local merece confiança em outro,
+          e quanto dado local o novo local precisa? Early Career Symposium, Vitória, 24 de setembro de 2026.</p>
+        <p class="go"><a href="fois2026/"><span lang="en">Paper, poster and talk &rarr;</span><span lang="pt-BR">Artigo, pôster e apresentação &rarr;</span></a></p>
+      </article>
+
       <article class="card">
-        <p class="tag live">● No ar &middot; código aberto &middot; selecionado no Palco Sebrae</p>
+        <p class="tag live"><span lang="en">● Live &middot; open source &middot; selected for the Sebrae Stage</span><span lang="pt-BR">● No ar &middot; código aberto &middot; selecionado no Palco Sebrae</span></p>
         <h3>ForeSight 3.0</h3>
-        <p>Previsão de criptoativos com validação científica. Sete estratégias testadas, seis
+        <p lang="en">Crypto-asset forecasting with scientific validation. Seven strategies tested, six
+          dead, one survives — replicated on two independent assets, with its limits stated.
+          <b>Selected for Momento Pitch — Palco Sebrae.</b></p>
+        <p lang="pt-BR">Previsão de criptoativos com validação científica. Sete estratégias testadas, seis
           mortas, uma sobrevive — replicada em dois ativos independentes, com os limites declarados.
           <b>Selecionado para o Momento Pitch — Palco Sebrae.</b></p>
-        <p class="go"><a href="sebrae/">Ver o pitch deck &rarr;</a><br>
+        <p class="go"><a href="sebrae/"><span lang="en">See the pitch deck &rarr;</span><span lang="pt-BR">Ver o pitch deck &rarr;</span></a><br>
           <a href="https://github.com/rodrigohuber/ForeSight-3.0" rel="noopener">github.com/rodrigohuber/ForeSight-3.0</a></p>
       </article>
 
       <article class="card">
-        <p class="tag">Artigo publicado</p>
-        <h3>Previsão solar zero-shot &mdash; SBPO 2025</h3>
-        <p>Previsão de geração fotovoltaica em usinas sem nenhum histórico local, com o código
+        <p class="tag"><span lang="en">Published paper</span><span lang="pt-BR">Artigo publicado</span></p>
+        <h3><span lang="en">Zero-shot solar forecasting &mdash; SBPO 2025</span><span lang="pt-BR">Previsão solar zero-shot &mdash; SBPO 2025</span></h3>
+        <p lang="en">Photovoltaic generation forecasting at plants with no local history at all, with the
+          full code published alongside the paper.</p>
+        <p lang="pt-BR">Previsão de geração fotovoltaica em usinas sem nenhum histórico local, com o código
           completo publicado junto do artigo.</p>
         <p class="go"><a href="https://github.com/rodrigohuber/zero-shot-solar-forecasting_SBPO25" rel="noopener">github.com/rodrigohuber/zero-shot-solar-forecasting_SBPO25</a></p>
       </article>
 
       <article class="card">
-        <p class="tag live">● No ar &middot; código aberto</p>
-        <h3>Retificação forense de uma dissertação de 2020</h3>
-        <p>Uma célula congelada de planilha invertia a conclusão. Reauditei o trabalho inteiro,
+        <p class="tag live"><span lang="en">● Live &middot; open source</span><span lang="pt-BR">● No ar &middot; código aberto</span></p>
+        <h3><span lang="en">Forensic rectification of a 2020 master’s thesis</span><span lang="pt-BR">Retificação forense de uma dissertação de 2020</span></h3>
+        <p lang="en">One frozen spreadsheet cell was inverting the conclusion. I re-audited the entire work,
+          rebuilt the pipeline reproducibly and published the rectification &mdash; together with a new
+          finding: <b>benchmarks on grid data under-test temperature-coupled models</b>, and that changes
+          the ranking of the winners.</p>
+        <p lang="pt-BR">Uma célula congelada de planilha invertia a conclusão. Reauditei o trabalho inteiro,
           reconstruí o pipeline de forma reproduzível e publiquei a retificação &mdash; junto com um
           achado novo: <b>benchmarks em dados de grade subtestam modelos acoplados à temperatura</b>,
           e isso troca a ordem dos vencedores.</p>
@@ -301,27 +426,33 @@
       </article>
 
       <article class="card">
-        <p class="tag">Revisão sistemática</p>
-        <h3>Transfer learning para previsão solar</h3>
-        <p>Revisão PRISMA de 106 estudos, organizada em torno de uma pergunta que nenhuma revisão
+        <p class="tag"><span lang="en">Systematic review</span><span lang="pt-BR">Revisão sistemática</span></p>
+        <h3><span lang="en">Transfer learning for solar forecasting</span><span lang="pt-BR">Transfer learning para previsão solar</span></h3>
+        <p lang="en">A PRISMA review of 106 studies, organized around a question no earlier review asked:
+          <b>how much local data</b> these methods actually need.</p>
+        <p lang="pt-BR">Revisão PRISMA de 106 estudos, organizada em torno de uma pergunta que nenhuma revisão
           anterior fez: <b>quanto dado local</b> esses métodos realmente precisam.</p>
-        <p class="go">Em andamento</p>
+        <p class="go"><span lang="en">In progress</span><span lang="pt-BR">Em andamento</span></p>
       </article>
 
       <article class="card">
-        <p class="tag live">● No ar &middot; material aberto</p>
-        <h3>Aula de graduação &mdash; introdução a transfer learning</h3>
-        <p>Curso introdutório de transfer learning para graduandos em ciência de dados: do zero,
+        <p class="tag live"><span lang="en">● Live &middot; open materials</span><span lang="pt-BR">● No ar &middot; material aberto</span></p>
+        <h3><span lang="en">Undergraduate course &mdash; introduction to transfer learning</span><span lang="pt-BR">Aula de graduação &mdash; introdução a transfer learning</span></h3>
+        <p lang="en">An introductory transfer-learning course for data-science undergraduates, starting from
+          zero, with all the materials in the open.</p>
+        <p lang="pt-BR">Curso introdutório de transfer learning para graduandos em ciência de dados: do zero,
           com o material completo aberto.</p>
         <p class="go"><a href="https://github.com/rodrigohuber/aula-grad" rel="noopener">github.com/rodrigohuber/aula-grad</a></p>
       </article>
 
       <article class="card">
-        <p class="tag">Doutorado</p>
-        <h3>Otimização robusta e incerteza na previsão fotovoltaica</h3>
-        <p>Machine learning e otimização distribucionalmente robusta aplicados à energia solar.
+        <p class="tag"><span lang="en">PhD</span><span lang="pt-BR">Doutorado</span></p>
+        <h3><span lang="en">Robust optimization and uncertainty in photovoltaic forecasting</span><span lang="pt-BR">Otimização robusta e incerteza na previsão fotovoltaica</span></h3>
+        <p lang="en">Machine learning and distributionally robust optimization applied to solar energy.
+          An ongoing line of research at PUC-Rio.</p>
+        <p lang="pt-BR">Machine learning e otimização distribucionalmente robusta aplicados à energia solar.
           Linha de pesquisa em andamento na PUC-Rio.</p>
-        <p class="go">Em andamento</p>
+        <p class="go"><span lang="en">In progress</span><span lang="pt-BR">Em andamento</span></p>
       </article>
 
     </div>
@@ -330,18 +461,32 @@
 
 <section>
   <div class="wrap">
-    <h2>Trajetória</h2>
-    <p class="h2sub">O resumo. O currículo completo — experiência detalhada, publicações,
+    <h2><span lang="en">Career</span><span lang="pt-BR">Trajetória</span></h2>
+    <p class="h2sub" lang="en">The short version. The full CV — detailed experience, publications,
+      skills and languages — is one click away.</p>
+    <p class="h2sub" lang="pt-BR">O resumo. O currículo completo — experiência detalhada, publicações,
       competências e idiomas — está a um clique.</p>
 
-    <div class="tl">
+    <div class="tl" lang="en">
+      <div class="tlrow"><span class="yr">2023 &mdash; present</span><span class="wt"><b>PhD researcher &middot; technical coordination</b> &mdash; PUC-Rio. Solar forecasting at 19 Brazilian sites, transfer learning under data scarcity, DRO with Gurobi. CAPES and FAPERJ Nota 10 scholarship holder.</span></div>
+      <div class="tlrow"><span class="yr">2021 &mdash; 2025</span><span class="wt"><b>Solar energy engineer &middot; field operations</b> &mdash; design, sizing, installation supervision, commissioning and on-site diagnostics.</span></div>
+      <div class="tlrow"><span class="yr">2018 &mdash; 2020</span><span class="wt"><b>Master’s researcher</b> &mdash; PUC-Rio. Metrology applied to solar irradiation forecasting; measurement and calibration for Oil &amp; Gas.</span></div>
+      <div class="tlrow"><span class="yr">2017 &mdash; 2018</span><span class="wt"><b>Technical operations assistant</b> &mdash; Decision Support. Risk analysis in Oil &amp; Gas, Six Sigma, Power BI dashboards.</span></div>
+    </div>
+    <div class="tl" lang="pt-BR">
       <div class="tlrow"><span class="yr">2023 &mdash; hoje</span><span class="wt"><b>Pesquisador de doutorado &middot; coordenação técnica</b> &mdash; PUC-Rio. Previsão solar em 19 sítios brasileiros, transfer learning sob escassez de dados, DRO com Gurobi. Bolsista CAPES e FAPERJ Nota 10.</span></div>
       <div class="tlrow"><span class="yr">2021 &mdash; 2025</span><span class="wt"><b>Engenheiro de energia solar &middot; operações de campo</b> &mdash; projeto, dimensionamento, supervisão de instalação, comissionamento e diagnóstico em campo.</span></div>
       <div class="tlrow"><span class="yr">2018 &mdash; 2020</span><span class="wt"><b>Pesquisador de mestrado</b> &mdash; PUC-Rio. Metrologia aplicada à previsão de irradiação solar; medição e calibração para Óleo e Gás.</span></div>
       <div class="tlrow"><span class="yr">2017 &mdash; 2018</span><span class="wt"><b>Assistente de operações técnicas</b> &mdash; Decision Support. Análise de risco em Óleo e Gás, Seis Sigma, dashboards em Power BI.</span></div>
     </div>
 
-    <div class="cred" style="margin-top:1rem">
+    <div class="cred" style="margin-top:1rem" lang="en">
+      <div><b>PhD in Industrial Engineering</b><span>PUC-Rio &middot; in progress, expected 2027</span></div>
+      <div><b>MSc in Metrology</b><span>PUC-Rio &middot; completed 2020</span></div>
+      <div><b>Mechanical Engineer</b><span>PUC-Rio</span></div>
+      <div><b>CAPES &middot; FAPERJ Nota 10 scholar</b><span>FAPERJ’s excellence scholarship track</span></div>
+    </div>
+    <div class="cred" style="margin-top:1rem" lang="pt-BR">
       <div><b>Doutorado em Engenharia de Produção</b><span>PUC-Rio &middot; em andamento, previsto para 2027</span></div>
       <div><b>Mestre em Metrologia</b><span>PUC-Rio &middot; concluído em 2020</span></div>
       <div><b>Engenheiro Mecânico</b><span>PUC-Rio</span></div>
@@ -349,14 +494,14 @@
     </div>
 
     <p style="margin-top:1.3rem">
-      <a class="cvbtn" href="cv/">Ver currículo completo &rarr;</a>
+      <a class="cvbtn" href="cv/"><span lang="en">Full CV (in Portuguese) &rarr;</span><span lang="pt-BR">Ver currículo completo &rarr;</span></a>
     </p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>Onde me encontrar</h2>
+    <h2><span lang="en">Find me</span><span lang="pt-BR">Onde me encontrar</span></h2>
     <div class="links">
       <a class="link" href="https://github.com/rodrigohuber" rel="noopener">
         <span class="ic">&#9679;</span><span class="tx"><b>GitHub</b><span>github.com/rodrigohuber</span></span></a>
@@ -367,27 +512,44 @@
       <a class="link" href="https://wa.me/5521998097648" rel="noopener">
         <span class="ic">&#9742;</span><span class="tx"><b>WhatsApp</b><span>+55 21 99809-7648</span></span></a>
       <a class="link" href="http://lattes.cnpq.br/0033509075538480" rel="noopener">
-        <span class="ic">&#9635;</span><span class="tx"><b>Lattes</b><span>Currículo acadêmico</span></span></a>
+        <span class="ic">&#9635;</span><span class="tx"><b>Lattes</b><span lang="en">Brazilian academic CV</span><span lang="pt-BR">Currículo acadêmico</span></span></a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p>Rodrigo Huber Marques Moreira Mendes &middot; Rio de Janeiro, Brasil</p>
-    <p>Citação bibliográfica: MENDES, R. H. M. M.</p>
+    <p>Rodrigo Huber Marques Moreira Mendes &middot; Rio de Janeiro, <span lang="en">Brazil</span><span lang="pt-BR">Brasil</span></p>
+    <p><span lang="en">Citation name</span><span lang="pt-BR">Citação bibliográfica</span>: MENDES, R. H. M. M.</p>
   </div>
 </footer>
 
-<div id="egg" role="dialog" aria-modal="true" aria-label="Você achou">
+<div id="egg" role="dialog" aria-modal="true" aria-label="You found it / Você achou">
   <div class="eggbox">
-    <p>Você clicou cinco vezes num ponto final.<br>Isso merece uma recompensa.</p>
-    <a class="go" id="eggLink" href="#" target="_blank" rel="noopener noreferrer">Abrir</a>
-    <button class="close" id="eggClose" type="button">fechar</button>
+    <p lang="en">You clicked a full stop five times.<br>That deserves a reward.</p>
+    <p lang="pt-BR">Você clicou cinco vezes num ponto final.<br>Isso merece uma recompensa.</p>
+    <a class="go" id="eggLink" href="#" target="_blank" rel="noopener noreferrer"><span lang="en">Open</span><span lang="pt-BR">Abrir</span></a>
+    <button class="close" id="eggClose" type="button"><span lang="en">close</span><span lang="pt-BR">fechar</span></button>
   </div>
 </div>
 
 <script>
+(function(){
+  /* ---------- language switch ---------- */
+  var root = document.documentElement,
+      btns = document.querySelectorAll('.langsw button');
+  function setLang(l, save){
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'pt' ? 'pt-BR' : 'en';
+    for (var i = 0; i < btns.length; i++)
+      btns[i].setAttribute('aria-pressed', btns[i].getAttribute('data-set') === l ? 'true' : 'false');
+    if (save) { try { localStorage.setItem('lang', l); } catch(e){} }
+  }
+  for (var i = 0; i < btns.length; i++)
+    btns[i].addEventListener('click', function(){ setLang(this.getAttribute('data-set'), true); });
+  setLang(root.getAttribute('data-lang') || 'en', false);
+})();
+
 (function(){
   /* ==========================================================
      EASTER EGG — 5 clicks on the full stop after the name.
